@@ -1,1 +1,1 @@
-# GPT-3
+Talk-talk is a language teaching bot. Hosted on Slack. You can give talk-talk a topic. Talk-talk answers back to you with an english word related to the topic you chose. You must answer back with the correct translation. 
