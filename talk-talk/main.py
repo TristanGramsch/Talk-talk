@@ -1,5 +1,5 @@
 # python -m uvicorn main:app --reload
-
+# TODO We must produce a containerazed version that comes with packages.
 from fastapi import FastAPI, Request
 from config import slack, openApi
 from threading import Thread
@@ -7,30 +7,24 @@ from random import randint
 import requests
 import openai
 
-
+# Set up keys.
 openai.api_key = openApi
 app = FastAPI()
 
-
+# More setup
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
-
-
 words = []
 url = slack
-
-
+# Object to make the machine work.
 def parseText(response):
     response = dict(response)
-    # print("response", response)
 
     choices = response["choices"][0]
-    # print("choices", choices)
 
     text = choices["text"]
     return text
-
 
 def learn(word, id):
     prompt = 'The following is a list of words in Spanish for English students to learn\n\nadjectives: deslumbrante (dazzling), nuevo (new), bien (well), simpático (sympathetic), diferente (different), intenso (intense), feliz (happy), imposible (impossible), atractivo (attractive), pobre (poor).\nwork: profesional (professional), cuidar (to take care), incapacitado (incapacitated), pago (payment), conocimiento (knowledge), reclutar (recruit), estudiar (study), empresa (company), vacaciones (vacation), cambio (change), colaborar (collaborate), jefe (boss), carpintero (carpenter), proyecto (project).\n' + word + ':'
